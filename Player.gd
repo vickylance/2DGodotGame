@@ -10,6 +10,11 @@ export var additional_fall_gravity := 8
 
 var velocity := Vector2.ZERO
 
+onready var animatedSprite := $AnimatedSprite
+
+func _ready() -> void:
+	animatedSprite.frames = load("res://PlayerGreenSkin.tres")
+
 func _physics_process(delta: float) -> void:
 	apply_gravity()
 	var input_axis = Vector2.ZERO
@@ -17,19 +22,31 @@ func _physics_process(delta: float) -> void:
 	
 	if input_axis.x == 0:
 		apply_friction()
+		animatedSprite.animation = "Idle"
 	else:
 		apply_acceleration(input_axis.x)
+		animatedSprite.animation = "Run"
+		if input_axis.x > 0:
+			animatedSprite.flip_h = true
+		else:
+			animatedSprite.flip_h = false
 	
 	if is_on_floor():
 		if Input.is_action_pressed("ui_up"):
 			velocity.y = -jump_force
 	else:
+		animatedSprite.animation = "Jump"
 		if Input.is_action_just_released("ui_up") and velocity.y < -jump_release_force:
 			velocity.y = -jump_release_force
 		if velocity.y > 0: # Celeste like fast fall
 			velocity.y += additional_fall_gravity
 	
+	var was_in_air = not is_on_floor()
 	velocity = move_and_slide(velocity, Vector2.UP)
+	var just_landed = is_on_floor() and was_in_air
+	if just_landed:
+		animatedSprite.animation = "Run"
+		animatedSprite.frame = 1 # To make sure that the first animation frame played on just hitting the floor is frame 2
 	pass
 
 func apply_gravity():
