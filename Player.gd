@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 export var jump_force := 190
 export var jump_release_force := 70
