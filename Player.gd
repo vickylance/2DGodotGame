@@ -1,20 +1,37 @@
 extends KinematicBody2D
 class_name Player
 
+enum {
+	MOVE,
+	CLIMB,
+}
+
 export(Resource) var moveData
 
 var velocity := Vector2.ZERO
+var state := MOVE
 
-onready var animatedSprite := $AnimatedSprite
+onready var animatedSprite := $AnimatedSprite as AnimatedSprite
+onready var ladder_check := $LaddderCheck as RayCast2D
 
 func _ready() -> void:
 	animatedSprite.frames = load("res://PlayerGreenSkin.tres")
 
 func _physics_process(delta: float) -> void:
-	apply_gravity()
-	var input_axis = Vector2.ZERO
-	input_axis.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	var input_axis := Vector2.ZERO
+	input_axis.x = Input.get_axis("ui_left", "ui_right")
+	input_axis.y = Input.get_axis("ui_up", "ui_down")
 	
+	match state:
+		MOVE: move_state(input_axis)
+		CLIMB: climb_state(input_axis)
+
+
+func move_state(input_axis: Vector2) -> void:
+	if is_on_ladder() and Input.is_action_pressed("ui_up"):
+		state = CLIMB
+	
+	apply_gravity()
 	if input_axis.x == 0:
 		apply_friction()
 		animatedSprite.animation = "Idle"
@@ -41,6 +58,24 @@ func _physics_process(delta: float) -> void:
 		animatedSprite.frame = 1 # To make sure that the first animation frame played on just hitting the floor is frame 2
 	pass
 
+func climb_state(input_axis: Vector2) -> void:
+	if not is_on_ladder():
+		state = MOVE
+	
+	if input_axis.length() != 0:
+		animatedSprite.animation = "Run"
+	else:
+		animatedSprite.animation = "Idle"
+	velocity = input_axis * 50
+	velocity = move_and_slide(velocity, Vector2.UP)
+	pass
+
+func is_on_ladder():
+	if not ladder_check.is_colliding(): return false
+	var collider := ladder_check.get_collider()
+	if not collider is Ladder: return false
+	return true
+
 func apply_gravity():
 	velocity.y += moveData.gravity
 	velocity.y = min(velocity.y, 200)
@@ -52,4 +87,7 @@ func apply_friction():
 
 func apply_acceleration(direction):
 	velocity.x = move_toward(velocity.x, moveData.max_speed * direction, moveData.acceleration)
+	pass
+
+func take_damage(dmg_value):
 	pass

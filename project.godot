@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Coin",
+"language": "GDScript",
+"path": "res://Coin.gd"
+}, {
+"base": "Area2D",
+"class": "Ladder",
+"language": "GDScript",
+"path": "res://Ladder.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
@@ -20,6 +30,8 @@ _global_script_classes=[ {
 "path": "res://PlayerMovementData.gd"
 } ]
 _global_script_class_icons={
+"Coin": "",
+"Ladder": "",
 "Player": "",
 "PlayerMovementData": ""
 }
@@ -33,6 +45,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Network="*res://Network.gd"
+Score="*res://Score.gd"
 
 [display]
 
