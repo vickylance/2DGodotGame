@@ -1,0 +1,99 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://tiles_packed.png" type="Texture" id=1]
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 72, 36, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 90, 36, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 108, 36, 18, 18 )
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="HeartContainer" type="HBoxContainer" parent="."]
+custom_constants/separation = 18
+
+[node name="Heart" type="Control" parent="HeartContainer"]
+
+[node name="FullHeart" type="TextureRect" parent="HeartContainer/Heart"]
+margin_right = 18.0
+margin_bottom = 18.0
+rect_clip_content = true
+texture = SubResource( 3 )
+stretch_mode = 3
+
+[node name="HalfHeart" type="TextureRect" parent="HeartContainer/Heart"]
+visible = false
+margin_right = 18.0
+margin_bottom = 18.0
+rect_clip_content = true
+texture = SubResource( 2 )
+stretch_mode = 3
+
+[node name="EmptyHeart" type="TextureRect" parent="HeartContainer/Heart"]
+visible = false
+margin_right = 18.0
+margin_bottom = 18.0
+rect_clip_content = true
+texture = SubResource( 1 )
+stretch_mode = 3
+
+[node name="Heart2" type="Control" parent="HeartContainer"]
+margin_left = 18.0
+margin_right = 18.0
+
+[node name="FullHeart" type="TextureRect" parent="HeartContainer/Heart2"]
+margin_right = 18.0
+margin_bottom = 18.0
+rect_clip_content = true
+texture = SubResource( 3 )
+stretch_mode = 3
+
+[node name="HalfHeart" type="TextureRect" parent="HeartContainer/Heart2"]
+visible = false
+margin_right = 18.0
+margin_bottom = 18.0
+rect_clip_content = true
+texture = SubResource( 2 )
+stretch_mode = 3
+
+[node name="EmptyHeart" type="TextureRect" parent="HeartContainer/Heart2"]
+visible = false
+margin_right = 18.0
+margin_bottom = 18.0
+rect_clip_content = true
+texture = SubResource( 1 )
+stretch_mode = 3
+
+[node name="Heart3" type="Control" parent="HeartContainer"]
+margin_left = 36.0
+margin_right = 36.0
+
+[node name="FullHeart" type="TextureRect" parent="HeartContainer/Heart3"]
+margin_right = 18.0
+margin_bottom = 18.0
+rect_clip_content = true
+texture = SubResource( 3 )
+stretch_mode = 3
+
+[node name="HalfHeart" type="TextureRect" parent="HeartContainer/Heart3"]
+visible = false
+margin_right = 18.0
+margin_bottom = 18.0
+rect_clip_content = true
+texture = SubResource( 2 )
+stretch_mode = 3
+
+[node name="EmptyHeart" type="TextureRect" parent="HeartContainer/Heart3"]
+visible = false
+margin_right = 18.0
+margin_bottom = 18.0
+rect_clip_content = true
+texture = SubResource( 1 )
+stretch_mode = 3
