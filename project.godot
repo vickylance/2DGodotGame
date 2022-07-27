@@ -30,6 +30,9 @@ config/name="2DGame"
 run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Network="*res://Network.gd"
 
 [display]
 
