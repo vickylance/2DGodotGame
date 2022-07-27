@@ -1,13 +1,7 @@
 extends KinematicBody2D
 class_name Player
 
-export var jump_force := 190
-export var jump_release_force := 70
-export var max_speed := 100
-export var acceleration := 20
-export var friction := 20
-export var gravity := 8
-export var additional_fall_gravity := 8
+export(Resource) var moveData
 
 var velocity := Vector2.ZERO
 
@@ -31,13 +25,13 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_floor():
 		if Input.is_action_pressed("ui_up"):
-			velocity.y = -jump_force
+			velocity.y = -moveData.jump_force
 	else:
 		animatedSprite.animation = "Jump"
-		if Input.is_action_just_released("ui_up") and velocity.y < -jump_release_force:
-			velocity.y = -jump_release_force
+		if Input.is_action_just_released("ui_up") and velocity.y < -moveData.jump_release_force:
+			velocity.y = -moveData.jump_release_force
 		if velocity.y > 0: # Celeste like fast fall
-			velocity.y += additional_fall_gravity
+			velocity.y += moveData.additional_fall_gravity
 	
 	var was_in_air = not is_on_floor()
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -48,14 +42,14 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func apply_gravity():
-	velocity.y += gravity
+	velocity.y += moveData.gravity
 	velocity.y = min(velocity.y, 200)
 	pass
 
 func apply_friction():
-	velocity.x = move_toward(velocity.x, 0, friction)
+	velocity.x = move_toward(velocity.x, 0, moveData.friction)
 	pass
 
 func apply_acceleration(direction):
-	velocity.x = move_toward(velocity.x, max_speed * direction, acceleration)
+	velocity.x = move_toward(velocity.x, moveData.max_speed * direction, moveData.acceleration)
 	pass
