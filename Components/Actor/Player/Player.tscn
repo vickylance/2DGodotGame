@@ -1,17 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://PlayerBlueSkin.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://Player.gd" type="Script" id=2]
-[ext_resource path="res://DefaultPlayerMovemetData.tres" type="Resource" id=3]
-[ext_resource path="res://Health.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Components/Actor/Player/PlayerBlueSkin.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Components/Actor/Player/DefaultPlayerMovemetData.tres" type="Resource" id=2]
+[ext_resource path="res://Components/Actor/Player/Player.gd" type="Script" id=3]
+[ext_resource path="res://System/Health/Health.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Components/Actor/Player/PlayerGreenSkin.tres" type="SpriteFrames" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 8.5 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
-script = ExtResource( 2 )
-moveData = ExtResource( 3 )
+script = ExtResource( 3 )
+moveData = ExtResource( 2 )
+skin = ExtResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )

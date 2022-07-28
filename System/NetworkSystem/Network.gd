@@ -21,18 +21,18 @@ func _ready() -> void:
 		if ip.begins_with("192.168."):
 			ip_address = ip
 	
-	get_tree().connect("connected_to_server", self, "_connected_to_server")
-	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	assert(get_tree().connect("connected_to_server", self, "_connected_to_server") == OK)
+	assert(get_tree().connect("server_disconnected", self, "_server_disconnected") == OK)
 
 
 func create_server() -> void:
 	server = NetworkedMultiplayerENet.new()
-	server.create_server(DEFAULT_PORT, MAX_CLIENTS)
+	assert(server.create_server(DEFAULT_PORT, MAX_CLIENTS) == OK)
 	get_tree().set_network_peer(server)
 
 func join_server() -> void:
 	client = NetworkedMultiplayerENet.new()
-	client.create_client(ip_address, DEFAULT_PORT)
+	assert(client.create_client(ip_address, DEFAULT_PORT) == OK)
 	get_tree().set_network_peer(client)
 
 func _connected_to_server():

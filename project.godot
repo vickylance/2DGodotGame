@@ -12,22 +12,22 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Coin",
 "language": "GDScript",
-"path": "res://Coin.gd"
+"path": "res://System/Coin/Coin.gd"
 }, {
 "base": "Area2D",
 "class": "Ladder",
 "language": "GDScript",
-"path": "res://Ladder.gd"
+"path": "res://System/Ladder/Ladder.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://Player.gd"
+"path": "res://Components/Actor/Player/Player.gd"
 }, {
 "base": "Resource",
 "class": "PlayerMovementData",
 "language": "GDScript",
-"path": "res://PlayerMovementData.gd"
+"path": "res://Components/Actor/Player/PlayerMovementData.gd"
 } ]
 _global_script_class_icons={
 "Coin": "",
@@ -39,13 +39,13 @@ _global_script_class_icons={
 [application]
 
 config/name="2DGame"
-run/main_scene="res://World.tscn"
+run/main_scene="res://Components/World/World.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Network="*res://Network.gd"
-Score="*res://Score.gd"
+Network="*res://System/NetworkSystem/Network.gd"
+Score="*res://Global/Score.gd"
 
 [display]
 
